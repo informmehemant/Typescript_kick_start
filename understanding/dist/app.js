@@ -14,43 +14,85 @@ var __extends = (this && this.__extends) || (function () {
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
 })();
-var Person = (function () {
-    function Person(name, age, occupation) {
-        if (name === void 0) { name = "Default Name"; }
-        if (age === void 0) { age = 0; }
-        if (occupation === void 0) { occupation = "Unknown"; }
+var Department = (function () {
+    function Department(id, name) {
+        this.id = id;
         this.name = name;
-        this.age = age;
-        this.occupation = occupation;
+        this.employees = [];
     }
-    Person.prototype.greet = function () {
-        console.log("Hi my name is ".concat(this.name, ", age ").concat(this.age, " and my Occupations is ").concat(this.occupation));
+    Department.prototype.describe = function () {
+        console.log("Department (".concat(this.id, "): ").concat(this.name));
     };
-    return Person;
+    Department.prototype.addEmployee = function (employee) {
+        this.employees.push(employee);
+    };
+    Department.prototype.printEmployeeInformation = function () {
+        console.log(this.employees.length);
+        console.log(this.employees);
+    };
+    return Department;
 }());
-var Student = (function (_super) {
-    __extends(Student, _super);
-    function Student(studentId, enrolledCourses) {
-        var _this = _super.call(this) || this;
-        _this.studentId = studentId;
-        _this.enrolledCourses = enrolledCourses;
+var ITDepartment = (function (_super) {
+    __extends(ITDepartment, _super);
+    function ITDepartment(id, admins) {
+        var _this = _super.call(this, id, "IT") || this;
+        _this.admins = admins;
         return _this;
     }
-    Student.prototype.study = function () {
-        console.log("".concat(this.name, " id =").concat(this.studentId, " , study ").concat(this.enrolledCourses));
-    };
-    return Student;
-}(Person));
-var Instructor = (function (_super) {
-    __extends(Instructor, _super);
-    function Instructor(department, coursesTaught) {
-        var _this = _super.call(this) || this;
-        _this.department = department;
-        _this.coursesTaught = coursesTaught;
+    return ITDepartment;
+}(Department));
+var AccountingDepartment = (function (_super) {
+    __extends(AccountingDepartment, _super);
+    function AccountingDepartment(id, reports) {
+        var _this = _super.call(this, id, "Accounting") || this;
+        _this.reports = reports;
+        _this.lastReport = "";
+        _this.lastReport = reports[0];
         return _this;
     }
-    Instructor.prototype.teach = function () {
-        console.log("".concat(this.name, " department=").concat(this.department, " , teaches ").concat(this.coursesTaught));
+    Object.defineProperty(AccountingDepartment.prototype, "mostRecentReport", {
+        get: function () {
+            if (this.lastReport) {
+                return this.lastReport;
+            }
+            throw new Error("No report found.");
+        },
+        set: function (value) {
+            if (!value) {
+                throw new Error("Please pass in a valid value!");
+            }
+            this.addReport(value);
+        },
+        enumerable: false,
+        configurable: true
+    });
+    AccountingDepartment.prototype.addEmployee = function (name) {
+        if (name === "Max") {
+            return;
+        }
+        this.employees.push(name);
     };
-    return Instructor;
-}(Person));
+    AccountingDepartment.prototype.addReport = function (text) {
+        this.reports.push(text);
+        this.lastReport = text;
+    };
+    AccountingDepartment.prototype.printReports = function () {
+        console.log(this.reports);
+    };
+    return AccountingDepartment;
+}(Department));
+var it = new ITDepartment("d1", ["Max"]);
+it.addEmployee("Max");
+it.addEmployee("Manu");
+it.describe();
+it.name = "NEW NAME";
+it.printEmployeeInformation();
+console.log(it);
+var accounting = new AccountingDepartment("d2", []);
+accounting.mostRecentReport = "adding new value";
+accounting.addReport("Something went wrong...");
+console.log(accounting.mostRecentReport);
+accounting.addEmployee("Max");
+accounting.addEmployee("Manu");
+accounting.printReports();
+accounting.printEmployeeInformation();

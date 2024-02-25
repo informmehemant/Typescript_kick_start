@@ -1,7 +1,7 @@
 // // // some comment
 // // const button = document.querySelector("button");
 
-import { Shape } from "./abstract";
+// import { Shape } from "./abstract";
 
 // // // comment
 // // let logged;
@@ -107,66 +107,66 @@ import { Shape } from "./abstract";
 
 // gemini teaching
 
-class Person {
-  constructor(
-    public name: string = "Default Name",
-    public age: number = 0,
-    public occupation: string = "Unknown"
-  ) {}
-  greet() {
-    console.log(
-      `Hi my name is ${this.name}, age ${this.age} and my Occupations is ${this.occupation}`
-    );
-  }
-}
+// class Person {
+//   constructor(
+//     public name: string = "Default Name",
+//     public age: number = 0,
+//     public occupation: string = "Unknown"
+//   ) {}
+//   greet() {
+//     console.log(
+//       `Hi my name is ${this.name}, age ${this.age} and my Occupations is ${this.occupation}`
+//     );
+//   }
+// }
 
-class Student extends Person {
-  constructor(private studentId: string, public enrolledCourses: string[]) {
-    super();
-  }
-  study() {
-    console.log(
-      `${this.name} id =${this.studentId} , study ${this.enrolledCourses}`
-    );
-  }
-}
+// class Student extends Person {
+//   constructor(private studentId: string, public enrolledCourses: string[]) {
+//     super();
+//   }
+//   study() {
+//     console.log(
+//       `${this.name} id =${this.studentId} , study ${this.enrolledCourses}`
+//     );
+//   }
+// }
 
-class Instructor extends Person {
-  constructor(private department: string, public coursesTaught: string[]) {
-    super();
-  }
-  teach() {
-    console.log(
-      `${this.name} department=${this.department} , teaches ${this.coursesTaught}`
-    );
-  }
-}
+// class Instructor extends Person {
+//   constructor(private department: string, public coursesTaught: string[]) {
+//     super();
+//   }
+//   teach() {
+//     console.log(
+//       `${this.name} department=${this.department} , teaches ${this.coursesTaught}`
+//     );
+//   }
+// }
 
 // abstract class
 
-class Rectange extends Shape {
-  constructor(public width: number, public height: number) {
-    super();
-  }
-  calculateArea(): number {
-    return this.width * this.height;
-  }
-}
+// class Rectange extends Shape {
+//   constructor(public width: number, public height: number) {
+//     super();
+//   }
+//   calculateArea(): number {
+//     return this.width * this.height;
+//   }
+// }
 
-class Circle extends Shape {
-  constructor(public radius: number) {
-    super();
-  }
-  calculateArea(): number {
-    return Math.PI * Math.pow(this.radius, 2);
-  }
-}
+// class Circle extends Shape {
+//   constructor(public radius: number) {
+//     super();
+//   }
+//   calculateArea(): number {
+//     return Math.PI * Math.pow(this.radius, 2);
+//   }
+// }
 
-const rectange = new Rectange(5, 20);
-const circle = new Circle(3);
+// const rectange = new Rectange(5, 20);
+// const circle = new Circle(3);
 
-console.log("Rectange area:", rectange.calculateArea());
-console.log("circle area:", circle.calculateArea());
+// console.log("Rectange area:", rectange.calculateArea());
+// console.log("circle area:", circle.calculateArea());
 
 class Department {
   // private readonly id: string;
@@ -203,7 +203,7 @@ class ITDepartment extends Department {
 }
 
 class AccountingDepartment extends Department {
-  private lastReport: string;
+  private lastReport: string = "";
 
   get mostRecentReport() {
     if (this.lastReport) {
@@ -211,14 +211,12 @@ class AccountingDepartment extends Department {
     }
     throw new Error("No report found.");
   }
-
   set mostRecentReport(value: string) {
     if (!value) {
       throw new Error("Please pass in a valid value!");
     }
     this.addReport(value);
   }
-
   constructor(id: string, private reports: string[]) {
     super(id, "Accounting");
     this.lastReport = reports[0];
@@ -255,8 +253,7 @@ it.printEmployeeInformation();
 console.log(it);
 
 const accounting = new AccountingDepartment("d2", []);
-
-accounting.mostRecentReport = "Year End Report";
+accounting.mostRecentReport = "adding new value";
 accounting.addReport("Something went wrong...");
 console.log(accounting.mostRecentReport);
 
