@@ -1,59 +1,29 @@
-// type AddFn = (a: number, b: number) => number;
-interface AddFn {
-  (a: number, b: number): number;
-}
-
-let add: AddFn;
-
-add = (n1: number, n2: number) =>{
-  return n1+ n2;
-}
-
-console.log(add(2,4))
-
-interface Named {
-  readonly name: string;
-}
-interface Greetable extends Named{
-  greet(phrase: string): void;
-}
-
-class Person implements Greetable{
-  name: string;
-  age =  30;
-  constructor(n: string) {
-    this.name = n;
-  }
-  greet(phrase: string): void {
-    console.log(phrase +' '+ this.name)
-  }
-
-}
-
-let user1: Greetable;
-user1 = new Person('Max');
-// user1.name = "hemant"
-user1.greet("Hi there - I am ");
-
-user1 = {
-  name: "Max",
-  greet(phrase: String) {
-    console.log(phrase + '' + this.name);
-  },
+type Admin = {
+    name: string;
+    privileges: string[];
 };
 
+type Employee = {
+    name: string;
+    startDate: Date;
+};
 
-// readonly only modifier in interface
+// intersection Types
 
-interface Greetable1 {
-  readonly name: string;
-  greet(phrase: string):void ;
-} 
 
-type Greetable4 = {
-  readonly name: string;
-  greet(phrase: string): void ;
-}
+type ElevatedEmployee = Admin & Employee;
 
-// class can extend only once, reverse of interface
+
+const e1: ElevatedEmployee = {
+    name: 'Hemant',
+    privileges: ['create-server'],
+    startDate: new Date()
+};
+
+type Combinable = string | number;
+
+type  Numeric = number| boolean;
+
+type Universal = Combinable & Numeric;
+
 
